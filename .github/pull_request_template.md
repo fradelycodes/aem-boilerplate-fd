@@ -34,11 +34,6 @@ where changes can be observed **before and after** the update:
 - If you have automation set up via GitHub Actions, you can configure it to
   dynamically replace `<branch>` with the actual branch name.
 
----
-
-Let me know if you'd like assistance automating the dynamic generation of test
-URLs using workflows or GitHub bots! 😊
-
 <!-- # Pull Request Template
 
 Please always provide the [GitHub issue(s)](../issues) your PR is for, as well

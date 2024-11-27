@@ -1,4 +1,44 @@
 .cards > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+    gap: 24px; /* Updated property name for consistency */
+}
+
+.cards > ul > li {
+    border: 1px solid #dadada;
+    background-color: var(--background-color);
+    border-radius: 8px; /* Added for smoother corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added subtle shadow for depth */
+    overflow: hidden; /* Ensures child elements don't overflow the card */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth hover effects */
+}
+
+.cards > ul > li:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.cards .cards-card-body {
+    padding: 16px; /* Changed from margin to padding for better spacing */
+    font-family: "Arial", sans-serif; /* Ensures consistent font styling */
+    color: #333; /* Sets a standard text color */
+}
+
+.cards .cards-card-image {
+    line-height: 0;
+}
+
+.cards > ul > li img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block; /* Removes default inline spacing */
+}
+
+/* .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -24,4 +64,4 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-}
+} */

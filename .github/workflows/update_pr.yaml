@@ -1,0 +1,22 @@
+name: Update PR Description
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  update-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Update PR Description with Test URLs
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          AFTER_URL="https://${{ env.BRANCH_NAME }}--aem-boilerplate-fd--fradelycodes.aem.live/"
+          gh pr edit ${{ github.event.pull_request.number }} \
+            --body "$(echo -e 'Please always provide the GitHub issue(s) your PR is for, as well as test URLs where your change can be observed (before and after):\n\nFix #\n\nTest URLs:\n\n- **Before:** https://main--aem-boilerplate-fd--fradelycodes.aem.live/\n- **After:** ${AFTER_URL}\n')"

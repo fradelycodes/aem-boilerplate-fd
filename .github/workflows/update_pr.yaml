@@ -1,0 +1,37 @@
+name: Update PR Description
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  update-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Authenticate GitHub CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Update PR Description with Test URLs
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          if [[ "${{ env.BRANCH_NAME }}" == "main" ]]; then
+            AFTER_URL="https://main--aem-boilerplate-fd--fradelycodes.aem.live/"
+          else
+            AFTER_URL="https://${{ env.BRANCH_NAME }}--aem-boilerplate-fd--fradelycodes.aem.page/"
+          fi
+          gh pr edit ${{ github.event.pull_request.number }} \
+            --body "$(echo -e 'Please always provide the GitHub issue(s) your PR is for, as well as test URLs where your change can be observed (before and after):\n\nFix #\n\nTest URLs:\n\n- **Before:** https://main--aem-boilerplate-fd--fradelycodes.aem.live/\n- **After:** ${AFTER_URL}\n')"
